@@ -2,7 +2,8 @@
 
 Sitio web para aprender y practicar el francés de nivel B1 (MCER / DELF B1), organizado como una línea de metro: 23 estaciones en 7 tramos, en orden de aprendizaje, más cuatro herramientas de referencia.
 
-Publicado como Claude Artifact: https://claude.ai/artifact/8XHttQfLgUyRG7x2XVnqbM
+- **Sitio publicado (GitHub Pages):** https://jeysonvr.github.io/ligne-b1-frances/
+- **Claude Artifact:** https://claude.ai/artifact/8XHttQfLgUyRG7x2XVnqbM
 
 ## Funciones
 
@@ -14,7 +15,8 @@ Publicado como Claude Artifact: https://claude.ai/artifact/8XHttQfLgUyRG7x2XVnqb
   - Cada estación avanza al leer sus 4 secciones y al superar sus juegos con un 70 % o más. Una sección cuenta como leída cuando cruza el centro de la pantalla durante un momento.
   - Anillos de avance en el menú y en el plan de la línea.
   - Tarjeta «Continúa donde lo dejaste», que recupera la última página y la posición.
-  - Exportar, importar y reiniciar el progreso desde la portada.
+  - Exportar e importar el progreso desde la portada.
+  - Reiniciar todo el aprendizaje (botón fijo al final del menú lateral y en la portada) o solo una estación (desde la lección). Ambas opciones piden confirmación y conservan el idioma elegido.
 - **Verbes et prépositions:** 180 verbos y locuciones, buscador, filtros, juegos aleatorios y descarga en PDF.
 - **Résumé des règles:** 40 reglas con ejemplo y descarga en PDF, en el idioma elegido.
 - **Conjugaison** y **Plan d'étude** (12 semanas, repetición espaciada y checklist B1).
@@ -36,12 +38,14 @@ tools/
   extract-audio-texts.js  Lista los textos con botón de audio, agrupados por página
   make-audio.py           Graba los clips (say + afconvert) y genera dist/audio y src/24-audio-map.js
   check-data.js           Comprueba los datos en ambos idiomas y la cobertura de audio
+assets/audio/*.mp4    Audio de pronunciación (AAC), generado por audio.sh
 audio.sh              Regenera el audio (solo macOS)
-build.sh              Une src/ en dist/
-dist/
-  index.html          Página completa para abrir en el navegador
+build.sh              Construye dist/ a partir de src/ y assets/
+.github/workflows/pages.yml  Valida los datos, construye y despliega en GitHub Pages
+dist/                 (no versionado)
+  index.html          Página completa (GitHub Pages o cualquier hosting estático)
   artifact.html       Solo el contenido, para publicarla como Claude Artifact
-  audio/*.mp4         Audio de pronunciación (AAC)
+  audio/*.mp4         Copia de assets/audio
 ```
 
 ## Uso
@@ -79,6 +83,18 @@ Cada lección se declara con `L({...})` y su `id` debe figurar en el array `less
   - Cualquier juego puede usar `gen: () => items` para generar rondas nuevas en cada intento.
 
 Los textos de la interfaz están en `src/25-i18n.js`, con las mismas claves en `es` y `fr`. `tools/check-data.js` avisa si falta alguna.
+
+## Despliegue en GitHub Pages
+
+Cada push a `main` ejecuta `.github/workflows/pages.yml`:
+
+1. `node tools/check-data.js` comprueba los datos en ES y FR y la cobertura de audio.
+2. `./build.sh` genera `dist/`.
+3. Se sube `dist/` como artefacto de Pages y se despliega.
+
+En el repositorio, Pages está configurado con **Settings → Pages → Source: GitHub Actions**. Todas las rutas son relativas (`audio/…`) y la navegación usa `#`, así que el sitio funciona bajo `/ligne-b1-frances/` sin configuración extra. `dist/.nojekyll` evita el procesado de Jekyll.
+
+Fuera del visor de Claude, las descargas (PDF y progreso) usan un enlace normal del navegador.
 
 ## Publicar en Claude
 
