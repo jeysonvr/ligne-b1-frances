@@ -1,0 +1,34 @@
+<header class="topbar">
+  <a class="brand" href="#accueil">
+    <span class="tricolore" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="brand-name">Ligne <em>B1</em></span>
+  </a>
+  <div class="topbar-actions">
+    <div class="lang" role="group" data-i18n-aria="langLabel"><button type="button" data-lang="es">ES</button><button type="button" data-lang="fr">FR</button></div>
+    <button class="menu-btn" id="menuBtn" aria-controls="side" aria-expanded="false"><span data-i18n="menu">Estaciones</span> <span class="mini" id="miniProg">0/23</span></button>
+  </div>
+</header>
+<div class="scrim" id="scrim"></div>
+<div class="app">
+  <aside class="side" id="side" data-i18n-aria="routeAria">
+    <a class="brand" href="#accueil">
+      <span class="tricolore" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="brand-name">Ligne <em>B1</em></span>
+      <span class="brand-sub" data-i18n="brandSub">Francés nivel B1 (MCER) · DELF B1</span>
+    </a>
+    <div class="lang-row">
+      <span data-i18n="langLabel">Explicaciones</span>
+      <div class="lang" role="group" data-i18n-aria="langLabel"><button type="button" data-lang="es">ES</button><button type="button" data-lang="fr">FR</button></div>
+    </div>
+    <div class="meter">
+      <div class="meter-row"><span data-i18n="yourRoute">Tu recorrido</span><span id="progLabel">0 de 23 estaciones</span></div>
+      <div class="bar"><i id="progBar"></i></div>
+    </div>
+    <nav class="route" id="route"></nav>
+    <button type="button" class="reset-link" id="resetAll"><span aria-hidden="true">↺</span> <span data-i18n="resetBtn">Reiniciar aprendizaje</span></button>
+  </aside>
+  <main class="main" id="main">
+    <div class="view" id="view"></div>
+  </main>
+</div>
+<canvas id="confetti" aria-hidden="true"></canvas>

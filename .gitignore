@@ -1,0 +1,9 @@
+# Build output (GitHub Actions builds and deploys it)
+dist/
+
+# Recorded clips cache used by tools/make-audio.py
+tools/.cache/
+
+.DS_Store
+node_modules/
+__pycache__/
